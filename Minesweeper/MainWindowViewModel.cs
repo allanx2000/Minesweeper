@@ -114,10 +114,14 @@ namespace Minesweeper
             MinesLeft = board.TotalMines;
             actualMinesLeft = board.TotalMines;
 
+            CellsLeft = board.Width * board.Height;
+
             //Set Handlers
             GridButton.SetHandlers(
                 OnClick,
                 Flag);
+
+            InGame = true;
         }
 
         #endregion
@@ -172,6 +176,7 @@ namespace Minesweeper
             if (flagged)
             {
                 MinesLeft--;
+                CellsLeft--;
 
                 if (isMine)
                     actualMinesLeft--;
@@ -179,13 +184,25 @@ namespace Minesweeper
             else
             {
                 MinesLeft++;
+                CellsLeft++;
 
                 if (isMine)
                     actualMinesLeft++;
             }
 
-            if (actualMinesLeft == 0 && minesLeft == 0)
+            CheckWin();
+        }
+
+        public bool InGame { get; private set; }
+
+        private void CheckWin()
+        {
+            if (!InGame)
+                return;
+
+            if (actualMinesLeft == 0 && minesLeft == 0 && CellsLeft == 0)
             {
+                InGame = false;
                 MessageBoxFactory.ShowInfo("Won", "You Win!");
             }
         }
@@ -197,10 +214,12 @@ namespace Minesweeper
             {
                 MessageBoxFactory.ShowError("Lose", "You Lose");
 
-                //TODO: Create new game
+                InGame = false;
             }
             else
             {
+                CellsLeft--;
+
                 var button = buttonGrid[r, c];
 
                 if (button.IsEmpty)
@@ -215,6 +234,8 @@ namespace Minesweeper
                         }
                     }
                 }
+
+                CheckWin();
             }
         }
 
@@ -227,6 +248,8 @@ namespace Minesweeper
             else
                 return buttonGrid[r, c];
         }
+
+        public int CellsLeft { get; private set; }
 
         private int minesLeft;
         public int MinesLeft
