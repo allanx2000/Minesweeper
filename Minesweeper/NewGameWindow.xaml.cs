@@ -34,6 +34,6 @@ namespace Minesweeper
 
         public int Columns { get { return vm.Columns; } }
 
-        public MainWindowViewModel.Mode Difficulty { get { return (MainWindowViewModel.Mode)Enum.Parse(typeof(MainWindowViewModel.Mode), vm.SelectedDifficulty); } }
+        public GameDifficulty Difficulty { get { return (GameDifficulty)Enum.Parse(typeof(GameDifficulty), vm.SelectedDifficulty); } }
     }
 }

@@ -82,6 +82,7 @@
     </Compile>
     <Compile Include="ButtonInfo.cs" />
     <Compile Include="GameBoard.cs" />
+    <Compile Include="GameMode.cs" />
     <Compile Include="GridButton.xaml.cs">
       <DependentUpon>GridButton.xaml</DependentUpon>
     </Compile>

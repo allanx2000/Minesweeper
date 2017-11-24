@@ -15,14 +15,6 @@ namespace Minesweeper
         private Window window;
         private System.Windows.Controls.Grid grid;
 
-        public enum Mode
-        {
-            Easy,
-            Medium,
-            Hard,
-            Expert,
-            Impossible
-        }
 
         public MainWindowViewModel(Window window, System.Windows.Controls.Grid grid)
         {
@@ -30,27 +22,27 @@ namespace Minesweeper
             this.grid = grid;
         }
 
-        private double ConvertDifficulty(Mode mode)
+        private double ConvertDifficulty(GameDifficulty mode)
         {
             switch (mode)
             {
                 default:
-                case Mode.Easy:
+                case GameDifficulty.Easy:
                     return .1;
-                case Mode.Medium:
+                case GameDifficulty.Medium:
                     return .2;
-                case Mode.Hard:
+                case GameDifficulty.Hard:
                     return .30;
-                case Mode.Expert:
+                case GameDifficulty.Expert:
                     return .40;
-                case Mode.Impossible:
+                case GameDifficulty.Impossible:
                     return .90;
             }
         }
 
         #region Game Creation
 
-        internal void CreateGame(int rows, int columns, Mode mode)
+        internal void CreateGame(int rows, int columns, GameDifficulty mode)
         {
             int mines = (int)((double)(rows * columns) * ConvertDifficulty(mode));
 
@@ -192,7 +184,7 @@ namespace Minesweeper
                     actualMinesLeft++;
             }
 
-            if (actualMinesLeft == 0)
+            if (actualMinesLeft == 0 && minesLeft == 0)
             {
                 MessageBoxFactory.ShowInfo("Won", "You Win!");
             }

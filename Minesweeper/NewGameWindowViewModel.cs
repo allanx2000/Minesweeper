@@ -17,7 +17,7 @@ namespace Minesweeper
             this.newGameWindow = newGameWindow;
 
             Rows = Columns = 30;
-            SelectedDifficulty = MainWindowViewModel.Mode.Medium.ToString();
+            SelectedDifficulty = GameDifficulty.Medium.ToString();
         }
 
         private string selectedDifficulty;
@@ -33,7 +33,7 @@ namespace Minesweeper
 
         public string[] Difficulties
         {
-            get { return Enum.GetNames(typeof(MainWindowViewModel.Mode)); }
+            get { return Enum.GetNames(typeof(GameDifficulty)); }
         }
 
         private int rows, columns;
