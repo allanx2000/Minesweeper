@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minesweeper", "Minesweeper\Minesweeper.csproj", "{45B69BF7-BEF4-4ACC-A048-246AA363225E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Innouvous.Utils.MVVM", "..\Innouvous.Utils\Innouvous.Utils.MVVM\Innouvous.Utils.MVVM.csproj", "{B90D1BD6-DB68-416C-9150-BA4E3C73A3F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Innouvous.Utils.MessageBoxFactory", "..\Innouvous.Utils\Innouvous.Utils.MessageBoxFactory\Innouvous.Utils.MessageBoxFactory.csproj", "{6BDDD1F2-3BC0-431D-923D-CE76681A3851}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{45B69BF7-BEF4-4ACC-A048-246AA363225E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45B69BF7-BEF4-4ACC-A048-246AA363225E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45B69BF7-BEF4-4ACC-A048-246AA363225E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45B69BF7-BEF4-4ACC-A048-246AA363225E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B90D1BD6-DB68-416C-9150-BA4E3C73A3F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B90D1BD6-DB68-416C-9150-BA4E3C73A3F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B90D1BD6-DB68-416C-9150-BA4E3C73A3F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B90D1BD6-DB68-416C-9150-BA4E3C73A3F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BDDD1F2-3BC0-431D-923D-CE76681A3851}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BDDD1F2-3BC0-431D-923D-CE76681A3851}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BDDD1F2-3BC0-431D-923D-CE76681A3851}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BDDD1F2-3BC0-431D-923D-CE76681A3851}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
