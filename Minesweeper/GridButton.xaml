@@ -10,7 +10,7 @@
                   DataContext="{Binding ElementName=Control}" 
                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                   Background="{Binding ButtonColor, FallbackValue=Pink}" 
-                  IsChecked="{Binding Clicked}" 
+                  IsChecked="{Binding Clicked, Mode=OneWay}" 
                   PreviewMouseLeftButtonDown="OnLeftClick" 
                   MouseRightButtonUp="OnRightClick">
         <Label Margin="0" Padding="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >

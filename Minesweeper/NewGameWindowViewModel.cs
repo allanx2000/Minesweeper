@@ -1,5 +1,5 @@
 ﻿using Innouvous.Utils;
-using Innouvous.Utils.MVVM;
+using Innouvous.Utils.Merged45.MVVM45;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,14 +20,13 @@ namespace Minesweeper
             SelectedDifficulty = GameDifficulty.Medium.ToString();
         }
 
-        private string selectedDifficulty;
         public string SelectedDifficulty
         {
-            get { return selectedDifficulty; }
+            get { return Get<string>(); }
             set
             {
-                selectedDifficulty = value;
-                RaisePropertyChanged("SelectedDifficulty");
+                Set(value);
+                RaisePropertyChanged();
             }
         }
 
@@ -70,7 +69,7 @@ namespace Minesweeper
 
         public ICommand StartCommand
         {
-            get { return new CommandHelper(Start); }
+            get { return new Innouvous.Utils.MVVM.CommandHelper(Start); }
         }
 
         private void Start()
