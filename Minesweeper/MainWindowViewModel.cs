@@ -89,6 +89,7 @@ namespace Minesweeper
             //Initialize Game
             MinesLeft = board.TotalMines;
             actualMinesLeft = board.TotalMines;
+            triggeredMines = 0;
 
             CellsLeft = board.Width * board.Height;
 
