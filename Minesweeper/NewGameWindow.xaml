@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Minesweeper.NewGameWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="NewGameWindow" Width="300" SizeToContent="Height">
+        Title="New Game..." Width="300" SizeToContent="Height">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -52,14 +53,16 @@ namespace Minesweeper
 
         private static Action<int, int> onClick;
         private static Action<int, int, bool> onFlag;
+        private static Action<int, int> onAutoClick;
 
         private static bool alwaysContinue { get; set; }
 
         //onFlag: r,c, isFlagged
-        public static void SetHandlers(Action<int, int> onClick, Action<int, int, bool> onFlag, bool alwaysContinue = true)
+        public static void SetHandlers(Action<int, int> onClick, Action<int, int, bool> onFlag, Action<int, int>  onAutoClick, bool alwaysContinue = true)
         {
             GridButton.onClick = onClick;
             GridButton.onFlag = onFlag;
+            GridButton.onAutoClick = onAutoClick;
 
             GridButton.alwaysContinue = alwaysContinue;
         }
@@ -140,23 +143,7 @@ namespace Minesweeper
 
             SetValue(ButtonColorProperty, color);
         }
-
-        //Click
-        public void OnLeftClick(object sender, MouseButtonEventArgs e)
-        {
-            if (Clicked || Flagged)
-                e.Handled = true;
-            else
-                DoClick();
-
-        }
-
-        //Flag
-        public void OnRightClick(object sender, MouseButtonEventArgs e)
-        {
-            Flag();
-        }
-
+        
         public void Flag(bool isUndo = false)
         {
             if (Clicked)
@@ -186,16 +173,6 @@ namespace Minesweeper
         public bool Flagged { get; set; }
 
 
-        public void Click()
-        {
-
-            if (Clicked || Flagged)
-            {
-                return;
-            }
-
-            DoClick();
-        }
 
         private void DoClick()
         {
@@ -238,7 +215,70 @@ namespace Minesweeper
             get { return info.IsMine; }
         }
 
+        public void Click()
+        {
+
+            if (Clicked || Flagged)
+            {
+                return;
+            }
+
+            DoClick();
+        }
 
         public bool IsEmpty { get { return info.IsEmpty; } }
+
+
+        private DelayedAction delayedClick = new DelayedAction();
+
+        private void Click(object sender, MouseButtonEventArgs e)
+        {
+            if (e.RightButton == MouseButtonState.Pressed && e.LeftButton == MouseButtonState.Pressed)
+            {
+                delayedClick.Cancel();
+
+                onAutoClick.Invoke(info.Row, info.Column);
+            }
+            else if (e.RightButton == MouseButtonState.Pressed)
+            {
+                delayedClick.Start(() => Flag());
+            }
+            else if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                if (Clicked || Flagged)
+                    e.Handled = true;
+                else
+                    delayedClick.Start(DoClick);
+            }
+        }
+        
+    }
+
+    public class DelayedAction
+    {
+        private Timer clickTimer;
+        private int delay = 100; //ms
+        
+        public void Cancel()
+        {
+            if (clickTimer != null)
+            {
+                clickTimer.Change(Timeout.Infinite, Timeout.Infinite);
+                clickTimer = null;
+            }
+        }
+
+        public void Start(Action action)
+        {
+            Cancel();
+
+            clickTimer = new Timer((x) =>
+                {
+                    App.Current.Dispatcher.Invoke(action);
+                },    
+                null, delay, -1);
+        }
+        
+        public void SetDelay(int delay) { this.delay = delay; }
     }
 }

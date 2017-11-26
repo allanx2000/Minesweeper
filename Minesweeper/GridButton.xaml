@@ -6,18 +6,31 @@
              mc:Ignorable="d" 
              Name="Control"
              d:DesignHeight="300" d:DesignWidth="300">
-    <ToggleButton Margin="0" Padding="0"  Name="Button" 
-                  DataContext="{Binding ElementName=Control}" 
-                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                  Background="{Binding ButtonColor, FallbackValue=Pink}" 
-                  IsChecked="{Binding Clicked, Mode=OneWay}" 
-                  PreviewMouseLeftButtonDown="OnLeftClick" 
-                  MouseRightButtonUp="OnRightClick">
-        <Label Margin="0" Padding="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+
+    <UserControl.Resources>
+        <Style x:Key="MyFocusVisual">
+        </Style>
+    </UserControl.Resources>
+
+
+    <!--
+            PreviewMouseLeftButtonDown="OnLeftClick" 
+            MouseRightButtonUp="OnRightClick" 
+        -->
+    
+    <Border Margin="0" Name="Button"
+            DataContext="{Binding ElementName=Control}"
+            CornerRadius="3" BorderThickness="2" BorderBrush="LightGray"
+            
+            HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+            Background="{Binding ButtonColor, FallbackValue=Pink}" 
+            
+            MouseDown="Click">
+        <Label Margin="0" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Stretch" >
             <Viewbox>
                 <TextBlock Foreground="Black" Text="{Binding ButtonText, FallbackValue='-'}"/>
             </Viewbox>
-            
+
         </Label>
-    </ToggleButton>
+    </Border>
 </UserControl>

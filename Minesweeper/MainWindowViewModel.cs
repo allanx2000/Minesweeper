@@ -119,7 +119,8 @@ namespace Minesweeper
             //Set Handlers
             GridButton.SetHandlers(
                 OnClick,
-                Flag);
+                Flag,
+                AutoClick);
 
             InGame = true;
         }
@@ -168,6 +169,35 @@ namespace Minesweeper
         private GameBoard board;
         private int actualMinesLeft;
         private GridButton[,] buttonGrid;
+
+        private void AutoClick(int r, int c)
+        {
+            int mines;
+
+            var locations = board.GetAdjacentsMap(r, c, out mines);
+
+            List<GridButton> adjacents = new List<GridButton>();
+
+            int flagged = 0;
+            foreach (var l in locations)
+            {
+                var button = buttonGrid[l.Row, l.Column];
+                adjacents.Add(button);
+
+                if (button.Flagged)
+                    flagged++;
+            }
+
+            if (flagged == mines)
+            {
+                foreach (var b in adjacents)
+                {
+                    if (!b.Flagged)
+                        b.Click();
+                }
+            }
+            
+        }
 
         private void Flag(int r, int c, bool flagged)
         {

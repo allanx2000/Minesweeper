@@ -94,5 +94,30 @@ namespace Minesweeper
             return num;
 
         }
+        
+        internal List<Location> GetAdjacentsMap(int r, int c, out int mines)
+        {
+            mines = 0;
+
+            List<Location> locs = new List<Location>();
+            for (int row = r - 1; row <= r + 1; row++)
+            {
+                for (int col = c - 1; col <= c + 1; col++)
+                {
+                    if (!(row == r && col == c) 
+                        && (row >= 0 && row < Height)
+                        && (col >= 0 && col < Width))
+                    {
+                        if (IsMine(row, col))
+                            mines++;
+
+                        locs.Add(new Location(row, col));
+                    }
+                }
+            }
+
+            return locs;
+
+        }
     }
 }
