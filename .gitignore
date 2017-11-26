@@ -16,6 +16,8 @@ $RECYCLE.BIN/
 
 bin/
 obj/
+publish/
+.vs/
 
 # =========================
 # Operating System Files
