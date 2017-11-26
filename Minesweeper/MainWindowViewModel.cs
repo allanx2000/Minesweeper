@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace Minesweeper
 {
-    public class MainWindowViewModel : ViewModel
+    public class MainWindowViewModel : Innouvous.Utils.Merged45.MVVM45.ViewModel
     {
         private Window window;
         private System.Windows.Controls.Grid grid;
@@ -112,6 +112,8 @@ namespace Minesweeper
 
         internal void Solve()
         {
+            InGame = false;
+
             foreach (var c in grid.Children)
             {
                 var gb = c as GridButton;
@@ -207,7 +209,14 @@ namespace Minesweeper
             CheckWin();
         }
 
-        public bool InGame { get; private set; }
+        public bool InGame {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value);
+                RaisePropertyChanged();
+            }
+        }
 
         private void CheckWin()
         {
