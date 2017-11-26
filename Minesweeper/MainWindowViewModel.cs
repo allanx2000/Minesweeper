@@ -22,32 +22,8 @@ namespace Minesweeper
             this.grid = grid;
         }
 
-        private double ConvertDifficulty(GameDifficulty mode)
-        {
-            switch (mode)
-            {
-                default:
-                case GameDifficulty.Easy:
-                    return .1;
-                case GameDifficulty.Medium:
-                    return .2;
-                case GameDifficulty.Hard:
-                    return .30;
-                case GameDifficulty.Expert:
-                    return .40;
-                case GameDifficulty.Impossible:
-                    return .90;
-            }
-        }
 
         #region Game Creation
-
-        internal void CreateGame(int rows, int columns, GameDifficulty mode)
-        {
-            int mines = (int)((double)(rows * columns) * ConvertDifficulty(mode));
-
-            CreateGame(rows, columns, mines);
-        }
 
         internal void CreateGame(int rows, int columns, int mines)
         {
@@ -120,7 +96,8 @@ namespace Minesweeper
             GridButton.SetHandlers(
                 OnClick,
                 Flag,
-                AutoClick);
+                AutoClick
+                );
 
             InGame = true;
         }
@@ -161,8 +138,8 @@ namespace Minesweeper
             dlg.Owner = window;
             dlg.ShowDialog();
 
-            //int r = 40, c = 40;
-            CreateGame(dlg.Rows, dlg.Columns, dlg.Difficulty);
+            if (!dlg.Cancelled)
+                CreateGame(dlg.Rows, dlg.Columns, dlg.Mines);
         }
 
         #endregion
@@ -171,6 +148,7 @@ namespace Minesweeper
 
         private GameBoard board;
         private int actualMinesLeft;
+        private int triggeredMines;
         private GridButton[,] buttonGrid;
 
         private void AutoClick(int r, int c)
@@ -202,7 +180,7 @@ namespace Minesweeper
             
         }
 
-        private void Flag(int r, int c, bool flagged)
+        private void Flag(int r, int c, bool flagged, bool triggered = false)
         {
             var isMine = board.IsMine(r, c);
 
@@ -223,6 +201,9 @@ namespace Minesweeper
                     actualMinesLeft++;
             }
 
+            if (triggered)
+                triggeredMines++;
+
             CheckWin();
         }
 
@@ -236,7 +217,10 @@ namespace Minesweeper
             if (actualMinesLeft == 0 && minesLeft == 0 && CellsLeft == 0)
             {
                 InGame = false;
-                MessageBoxFactory.ShowInfo("Won", "You Win!");
+                
+                MessageBoxFactory.ShowInfo("You Win" + (triggeredMines == 0 ? 
+                    "!" :
+                    ("... after triggering " + triggeredMines + " mines... :(")), "You Win");
             }
         }
 

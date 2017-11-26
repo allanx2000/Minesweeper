@@ -12,10 +12,13 @@ namespace Minesweeper
     {
         private NewGameWindow newGameWindow;
 
+        public bool Cancelled { get; private set; }
+
         public NewGameWindowViewModel(NewGameWindow newGameWindow)
         {
             this.newGameWindow = newGameWindow;
 
+            Cancelled = true;
             Rows = Columns = 30;
             SelectedDifficulty = GameDifficulty.Medium.ToString();
         }
@@ -27,7 +30,19 @@ namespace Minesweeper
             {
                 Set(value);
                 RaisePropertyChanged();
+
+                UpdateMines();
             }
+        }
+
+        private void UpdateMines()
+        {
+            if (string.IsNullOrEmpty(SelectedDifficulty) || Rows < 0 || Columns < 0)
+                return;
+
+            var difficulty = (GameDifficulty)Enum.Parse(typeof(GameDifficulty), SelectedDifficulty);
+
+            Mines = (int)(ConvertDifficulty(difficulty) * (double)Rows * (double)Columns);
         }
 
         public string[] Difficulties
@@ -49,6 +64,7 @@ namespace Minesweeper
                 else
                     rows = value;
                 
+                UpdateMines();
                 RaisePropertyChanged("Rows");
             }
         }
@@ -63,6 +79,7 @@ namespace Minesweeper
                 else
                     columns = value;
 
+                UpdateMines();
                 RaisePropertyChanged("Columns");
             }
         }
@@ -72,6 +89,33 @@ namespace Minesweeper
             get { return new Innouvous.Utils.MVVM.CommandHelper(Start); }
         }
 
+        public int Mines {
+            get { return Get<int>(); }
+            set
+            {
+                Set(value);
+                RaisePropertyChanged();
+            }
+        }
+
+        private double ConvertDifficulty(GameDifficulty mode)
+        {
+            switch (mode)
+            {
+                default:
+                case GameDifficulty.Easy:
+                    return .1;
+                case GameDifficulty.Medium:
+                    return .2;
+                case GameDifficulty.Hard:
+                    return .25;
+                case GameDifficulty.Expert:
+                    return .30;
+                case GameDifficulty.Impossible:
+                    return .80;
+            }
+        }
+        
         private void Start()
         {
             try
@@ -79,9 +123,7 @@ namespace Minesweeper
                 if (Rows < 2 || Columns < 2)
                     throw new Exception("Rows or Columns must be greater than 2");
 
-                if (string.IsNullOrEmpty(SelectedDifficulty))
-                    throw new Exception("Difficulty Must Be Set");
-
+                Cancelled = false;
                 newGameWindow.Close();
             }
             catch (Exception e)

@@ -32,7 +32,9 @@ namespace Minesweeper
         public int Rows { get { return vm.Rows; }}
 
         public int Columns { get { return vm.Columns; } }
+        
+        public int Mines { get { return vm.Mines; } }
 
-        public GameDifficulty Difficulty { get { return (GameDifficulty)Enum.Parse(typeof(GameDifficulty), vm.SelectedDifficulty); } }
+        public bool Cancelled { get { return vm.Cancelled; } }
     }
 }

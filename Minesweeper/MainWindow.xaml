@@ -2,7 +2,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:Minesweeper"
-        Title="Minesweeper" Height="350" Width="525">
+        Title="Minesweeper" Height="350" Width="525"
+        WindowState="Maximized"
+        WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <DockPanel LastChildFill="True">
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
             <Label FontWeight="Bold">Mines Left: </Label>

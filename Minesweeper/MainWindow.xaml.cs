@@ -28,6 +28,12 @@ namespace Minesweeper
 
             vm = new MainWindowViewModel(this, this.MineField);
             DataContext = vm;
+
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            vm.NewGame();
         }
     }
 }

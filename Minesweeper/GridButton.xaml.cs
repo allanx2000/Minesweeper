@@ -52,13 +52,13 @@ namespace Minesweeper
         #region Game Actions Handlers
 
         private static Action<int, int> onClick;
-        private static Action<int, int, bool> onFlag;
+        private static Action<int, int, bool, bool> onFlag;
         private static Action<int, int> onAutoClick;
-
+        
         private static bool alwaysContinue { get; set; }
 
         //onFlag: r,c, isFlagged
-        public static void SetHandlers(Action<int, int> onClick, Action<int, int, bool> onFlag, Action<int, int>  onAutoClick, bool alwaysContinue = true)
+        public static void SetHandlers(Action<int, int> onClick, Action<int, int, bool, bool> onFlag, Action<int, int>  onAutoClick, bool alwaysContinue = true)
         {
             GridButton.onClick = onClick;
             GridButton.onFlag = onFlag;
@@ -153,7 +153,7 @@ namespace Minesweeper
             {
                 Flagged = true;
                 Clicked = true;
-
+                
                 SetColor(ButtonStates.Undo);
 
             }
@@ -166,7 +166,7 @@ namespace Minesweeper
             }
 
             if (onFlag != null)
-                onFlag.Invoke(info.Row, info.Column, Flagged);
+                onFlag.Invoke(info.Row, info.Column, Flagged, isUndo);
             
         }
 
