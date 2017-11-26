@@ -139,6 +139,9 @@ namespace Minesweeper
             {
                 var gb = c as GridButton;
 
+                if (gb.Flagged)
+                    gb.Flag();
+
                 if (!gb.IsMine)
                     gb.Click();
                 else
