@@ -180,7 +180,7 @@ namespace Minesweeper
                         b.Click();
                 }
             }
-            
+
         }
 
         private void Flag(int r, int c, bool flagged, bool triggered = false)
@@ -210,7 +210,8 @@ namespace Minesweeper
             CheckWin();
         }
 
-        public bool InGame {
+        public bool InGame
+        {
             get { return Get<bool>(); }
             set
             {
@@ -227,8 +228,8 @@ namespace Minesweeper
             if (actualMinesLeft == 0 && minesLeft == 0 && CellsLeft == 0)
             {
                 InGame = false;
-                
-                MessageBoxFactory.ShowInfo("You Win" + (triggeredMines == 0 ? 
+
+                MessageBoxFactory.ShowInfo("You Win" + (triggeredMines == 0 ?
                     "!" :
                     ("... after triggering " + triggeredMines + " mines... :(")), "You Win");
             }
@@ -285,7 +286,19 @@ namespace Minesweeper
             set
             {
                 minesLeft = value;
-                RaisePropertyChanged("MinesLeft");
+                RaisePropertyChanged();
+                RaisePropertyChanged("MinesLeftString");
+            }
+        }
+
+        public string MinesLeftString
+        {
+            get
+            {
+                if (board == null)
+                    return null;
+                else
+                    return minesLeft + "/" + board.TotalMines;
             }
         }
 

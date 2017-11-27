@@ -8,14 +8,16 @@
     <DockPanel LastChildFill="True">
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
             <Label FontWeight="Bold">Mines Left: </Label>
-            <Label Content="{Binding MinesLeft, FallbackValue=MinesLeft}"/>
+            <Label Content="{Binding MinesLeftString}"/>
         </StackPanel>
         
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Command="{Binding NewGameCommand}">New Game</Button>
             <Button Command="{Binding SolveCommand}" IsEnabled="{Binding InGame}">Solve</Button>
         </StackPanel>
-        
+
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <Grid Name="MineField"/>
+        </ScrollViewer>
     </DockPanel>
 </Window>

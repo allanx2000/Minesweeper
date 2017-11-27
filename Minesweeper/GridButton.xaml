@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              Name="Control"
+             MinHeight="30" MinWidth="30"
              d:DesignHeight="300" d:DesignWidth="300">
 
     <UserControl.Resources>
@@ -12,12 +13,6 @@
         </Style>
     </UserControl.Resources>
 
-
-    <!--
-            PreviewMouseLeftButtonDown="OnLeftClick" 
-            MouseRightButtonUp="OnRightClick" 
-        -->
-    
     <Border Margin="0" Name="Button"
             DataContext="{Binding ElementName=Control}"
             CornerRadius="3" BorderThickness="2" BorderBrush="LightGray"
@@ -26,8 +21,10 @@
             Background="{Binding ButtonColor, FallbackValue=Pink}" 
             
             MouseDown="Click">
-        <Label Margin="0" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Stretch" >
-            <Viewbox>
+        <Label Margin="0" Padding="0" 
+               HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch"
+               HorizontalAlignment="Stretch" VerticalContentAlignment="Stretch" >
+            <Viewbox HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <TextBlock Foreground="Black" Text="{Binding ButtonText, FallbackValue='-'}"/>
             </Viewbox>
 

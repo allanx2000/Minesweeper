@@ -12,7 +12,7 @@ namespace Minesweeper
         {
         }
 
-        public static GameBoard CreateBoard(int w, int h, int mines, int? seed = null)
+        public static GameBoard CreateBoard(int h, int w, int mines, int? seed = null)
         {
             int size = w * h;
             if (mines > w * h)
