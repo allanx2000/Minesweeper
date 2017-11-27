@@ -237,7 +237,10 @@ namespace Minesweeper
             {
                 delayedClick.Cancel();
 
-                onAutoClick.Invoke(info.Row, info.Column);
+                if (Clicked) //Dont auto-click if not clicked
+                    onAutoClick.Invoke(info.Row, info.Column);
+                else
+                    e.Handled = true;
             }
             else if (e.RightButton == MouseButtonState.Pressed)
             {
